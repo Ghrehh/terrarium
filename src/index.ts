@@ -10,7 +10,7 @@ const gameState = GameState(randomInteger);
 
 const p = Plant();
 
-gameState.board[0].entity = p;
+gameState.board[0][0].entity = p;
 
 const symbolForTile = (tile: boardTile) => {
   if (tile.entity === null && !tile.soilFertilized) return '■';
@@ -23,21 +23,15 @@ const symbolForTile = (tile: boardTile) => {
 setInterval(
   () => {
     console.log('\x1Bc');
-    const symbolsOfBoard = gameState.board.map(symbolForTile);
-    const finalOutput: string[] = [];
-    const output = symbolsOfBoard.reduce(
-      (output, sym, i) => {
-        if (i % 10 === 0 && i !== 0) {
-          output.push('\n')
-        }
+    let finalOutput: string = '';
+    for (let x = 0; x < gameState.boardHeight; x++) {
+      for (let y = 0; y < gameState.boardWidth; y++) {
+        finalOutput += symbolForTile(gameState.board[x][y])
+      }
+      finalOutput += '\n';
+    }
 
-        output.push(sym)
-        return output;
-      },
-      finalOutput
-    )
-
-    console.log(output.join(''));
+    console.log(finalOutput);
   },
   1000
 )
