@@ -9,16 +9,14 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
-    ],
+    ]
   },
   resolve: {
-    alias: {
-      entities: path.resolve(__dirname, 'src/entities/')
-    },
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-  },
+  }
 };

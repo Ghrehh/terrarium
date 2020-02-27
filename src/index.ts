@@ -1,15 +1,16 @@
 import Plant from 'entities/Plant';
-import boardTile from './boardTile';
+import boardTile from 'boardTile';
+import GameState from 'GameState';
+
+const randomInteger = (max: number): number => {
+  return Math.floor(Math.random() * Math.floor(max + 1));
+}
+
+const gameState = GameState(randomInteger);
 
 const p = Plant();
 
-const board: boardTile[] = [];
-
-for (let i = 0; i < 100; i++) {
-  board.push({ soilFertilized: true, entity: null })
-}
-
-board[0].entity = p;
+gameState.board[0].entity = p;
 
 const symbolForTile = (tile: boardTile) => {
   if (tile.entity === null && !tile.soilFertilized) return '■';
@@ -22,7 +23,7 @@ const symbolForTile = (tile: boardTile) => {
 setInterval(
   () => {
     console.log('\x1Bc');
-    const symbolsOfBoard = board.map(symbolForTile);
+    const symbolsOfBoard = gameState.board.map(symbolForTile);
     const finalOutput: string[] = [];
     const output = symbolsOfBoard.reduce(
       (output, sym, i) => {

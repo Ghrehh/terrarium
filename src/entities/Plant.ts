@@ -1,4 +1,4 @@
-import board from 'board';
+import boardTile from 'boardTile';
 
 const proto = {
   born: 0,
@@ -11,7 +11,7 @@ const proto = {
   kill() {
   },
 
-  tick(board: board) {
+  tick(board: boardTile[]) {
   }
 };
 
