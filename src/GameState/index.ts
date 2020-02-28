@@ -1,19 +1,21 @@
 import boardTile from "boardTile";
 
-const GameState = (randomInteger: (_: number) => number) => {
-  const gameState: {
-    board: boardTile[][];
-    log: string[];
-    tick: () => void;
-    boardWidth: number;
-    boardHeight: number;
-  } = {
+interface GameStateInterface {
+  board: boardTile[][];
+  log: string[];
+  tick: () => void;
+  boardWidth: number;
+  boardHeight: number;
+}
+
+const GameState = (randomInteger: (_: number) => number): GameStateInterface => {
+  const gameState: GameStateInterface = {
     board: [],
     log: [],
     boardWidth: 30,
     boardHeight: 30,
     tick() {
-      this.board.map(({ soilFertilized, entity }: boardTile) => {});
+      this.board.forEach(({ soilFertilized, entity }: boardTile) => ({ soilFertilized, entity }));
     }
   };
 

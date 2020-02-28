@@ -12,7 +12,7 @@ const p = Plant();
 
 gameState.board[0][0].entity = p;
 
-const symbolForTile = (tile: boardTile) => {
+const symbolForTile = (tile: boardTile): string => {
   if (tile.entity === null && !tile.soilFertilized) return "■";
   if (tile.entity === null) return "~";
   if (tile.entity.name === "Plant") return "Ï";
