@@ -1,7 +1,7 @@
-import boardTile from "boardTile";
+import BoardTile from "BoardTile";
 
 interface GameStateInterface {
-  board: boardTile[][];
+  board: BoardTile[][];
   log: string[];
   tick: () => void;
   boardWidth: number;

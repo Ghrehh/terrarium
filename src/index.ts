@@ -1,5 +1,5 @@
 import Plant from "entities/Plant";
-import boardTile from "boardTile";
+import BoardTile from "BoardTile";
 import GameState from "GameState";
 
 const randomInteger = (max: number): number => {
@@ -12,7 +12,7 @@ const p = Plant();
 
 gameState.board[0][0].entity = p;
 
-const symbolForTile = (tile: boardTile): string => {
+const symbolForTile = (tile: BoardTile): string => {
   if (tile.entity === null && !tile.soilFertilized) return "■";
   if (tile.entity === null) return "~";
   if (tile.entity.name === "Plant") return "Ï";

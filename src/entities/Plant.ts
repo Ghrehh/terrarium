@@ -1,4 +1,4 @@
-import boardTile from "boardTile";
+import BoardTile from "boardTile";
 
 const proto = {
   born: 0,
@@ -8,9 +8,7 @@ const proto = {
     return "Plant";
   },
 
-  kill() {},
-
-  tick(board: boardTile[]) {}
+  tick(board: BoardTile[]) {}
 };
 
 const newPlant = () => Object.create(proto);

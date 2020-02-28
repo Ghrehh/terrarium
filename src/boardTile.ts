@@ -3,9 +3,9 @@ interface entity {
   tick: () => void;
 }
 
-interface boardTile {
+interface BoardTile {
   soilFertilized: boolean;
   entity: { name: string } | null;
 }
 
-export default boardTile;
+export default BoardTile;
