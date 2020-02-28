@@ -8,15 +8,15 @@ interface GameStateInterface {
   boardHeight: number;
 }
 
-const GameState = (randomInteger: (_: number) => number): GameStateInterface => {
+const GameState = (
+  randomInteger: (_: number) => number
+): GameStateInterface => {
   const gameState: GameStateInterface = {
     board: [],
     log: [],
     boardWidth: 30,
     boardHeight: 30,
-    tick() {
-      this.board.forEach(({ soilFertilized, entity }: boardTile) => ({ soilFertilized, entity }));
-    }
+    tick() {}
   };
 
   for (let x = 0; x < gameState.boardHeight; x++) {
