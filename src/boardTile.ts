@@ -1,6 +1,6 @@
 interface entity {
-  name: string,
-  tick: () => void
+  name: string;
+  tick: () => void;
 }
 
 interface boardTile {

@@ -1,7 +1,9 @@
-enum Verb { Reproduce }
+enum Verb {
+  Reproduce
+}
 
 interface instruction {
-  entity: string,
-  verb: string,
-  target: string
+  entity: string;
+  verb: string;
+  target: string;
 }

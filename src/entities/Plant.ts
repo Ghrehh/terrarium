@@ -1,20 +1,18 @@
-import boardTile from 'boardTile';
+import boardTile from "boardTile";
 
 const proto = {
   born: 0,
   lifespan: 30,
 
   get name() {
-    return 'Plant';
+    return "Plant";
   },
 
-  kill() {
-  },
+  kill() {},
 
-  tick(board: boardTile[]) {
-  }
+  tick(board: boardTile[]) {}
 };
 
-const newPlant = () => Object.create(proto)
+const newPlant = () => Object.create(proto);
 
 export default newPlant;
