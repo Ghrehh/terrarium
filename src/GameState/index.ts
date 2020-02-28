@@ -1,4 +1,4 @@
-import BoardTile from "BoardTile";
+import BoardTile from 'BoardTile';
 
 interface GameStateInterface {
   board: BoardTile[][];
