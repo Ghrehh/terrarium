@@ -1,12 +1,12 @@
 import EntityName from 'entities/Name';
 import { Tile } from 'Board';
-import GameState from 'GameState';
+import Game from 'Game';
 
 const randomInteger = (max: number): number => {
   return Math.floor(Math.random() * Math.floor(max + 1));
 };
 
-const gameState = GameState(randomInteger);
+const gameState = Game(randomInteger);
 
 const symbolForTile = (tile: Tile | null): string => {
   if (tile === null) return 'x';

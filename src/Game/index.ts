@@ -1,18 +1,16 @@
-import NewBoard, { Board, Tile } from 'Board';
+import NewBoard, { Board } from 'Board';
 import Name from 'entities/Name';
 import NewPlant from 'entities/Plant';
 import Instruction, { Verb } from 'Instruction';
 
-interface GameStateInterface {
+interface Game {
   board: Board;
   tick(): void;
   applyInstructions(instructions: Instruction[]): void;
 }
 
-const GameState = (
-  randomInteger: (_: number) => number
-): GameStateInterface => {
-  const gameState: GameStateInterface = {
+const NewGame = (randomInteger: (_: number) => number): Game => {
+  return {
     board: NewBoard(),
     applyInstructions(instructions: Instruction[]) {
       instructions.forEach((instruction: Instruction) => {
@@ -40,11 +38,9 @@ const GameState = (
         });
       });
       this.applyInstructions(instructions);
-      console.log(instructions);
+      //console.log(instructions);
     }
   };
-
-  return gameState;
 };
 
-export default GameState;
+export default NewGame;
