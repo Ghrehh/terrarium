@@ -1,10 +1,9 @@
-enum Verb {
+export enum Verb {
   Reproduce
 }
 
-interface Instruction {
+export default interface Instruction {
   entity: string;
-  verb: string;
-  target: string;
+  verb: Verb;
   location: { x: number; y: number };
 }

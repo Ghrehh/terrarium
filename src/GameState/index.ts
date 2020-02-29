@@ -1,9 +1,10 @@
 import BoardTile from 'BoardTile';
+import Instruction from 'Instruction';
 
 interface GameStateInterface {
   board: BoardTile[][];
   log: string[];
-  tick: () => void;
+  tick(): void;
   boardWidth: number;
   boardHeight: number;
 }
@@ -16,7 +17,17 @@ const GameState = (
     log: [],
     boardWidth: 30,
     boardHeight: 30,
-    tick() {}
+    tick() {
+      let instructions: Instruction[] = [];
+      this.board.forEach((boardRow, y) => {
+        boardRow.forEach((tile, x) => {
+          const entity = tile.entity;
+          if (entity === null) return;
+
+          instructions = instructions.concat(entity.tick(this.board, { x, y }));
+        });
+      });
+    }
   };
 
   for (let x = 0; x < gameState.boardHeight; x++) {

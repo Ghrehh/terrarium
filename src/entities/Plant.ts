@@ -1,5 +1,6 @@
 import BoardTile from 'BoardTile';
-import Instruction from 'Instruction';
+import Coordinate from 'Coordinate';
+import Instruction, { Verb } from 'Instruction';
 
 const proto = {
   born: 0,
@@ -9,13 +10,15 @@ const proto = {
     return 'Plant';
   },
 
-  tick(board: BoardTile[]): Instruction[] {
-    return {
-      entity: 'foo',
-      verb: 'foo',
-      target: 'foo',
-      location: { x: 1, y: 1 }
-    };
+  tick(board: BoardTile[][], location: Coordinate): Instruction[] {
+
+    return [
+      {
+        entity: 'Plant',
+        verb: Verb.Reproduce,
+        location: { x: 1, y: 1 }
+      }
+    ];
   }
 };
 
