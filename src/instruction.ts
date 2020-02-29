@@ -1,9 +1,12 @@
+import Coordinate from 'Coordinate';
+import Name from 'entities/Name';
+
 export enum Verb {
-  Reproduce
+  reproduce = 'reproduce'
 }
 
 export default interface Instruction {
-  entity: string;
+  entity: Name;
   verb: Verb;
-  location: { x: number; y: number };
+  location: Coordinate;
 }

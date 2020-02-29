@@ -1,4 +1,5 @@
 import Plant from 'entities/Plant';
+import EntityName from 'entities/Name';
 import BoardTile from 'BoardTile';
 import GameState from 'GameState';
 
@@ -15,12 +16,13 @@ gameState.board[0][0].entity = p;
 const symbolForTile = (tile: BoardTile): string => {
   if (tile.entity === null && !tile.soilFertilized) return '■';
   if (tile.entity === null) return '~';
-  if (tile.entity.name === 'Plant') return 'Ï';
+  if (tile.entity.name === EntityName.plant) return 'Ï';
 
   return 'x';
 };
 
 setInterval(() => {
+  gameState.tick();
   console.log('\x1Bc');
   let finalOutput = '';
   for (let x = 0; x < gameState.boardHeight; x++) {

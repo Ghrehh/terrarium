@@ -27,6 +27,7 @@ const GameState = (
           instructions = instructions.concat(entity.tick(this.board, { x, y }));
         });
       });
+      console.log(instructions);
     }
   };
 

@@ -2,6 +2,6 @@ import newPlant from './Plant';
 
 describe('newPlant', () => {
   it('createsANewPlant', () => {
-    expect(newPlant().name).toBe('Plant');
+    expect(newPlant().name).toBe('plant');
   });
 });
