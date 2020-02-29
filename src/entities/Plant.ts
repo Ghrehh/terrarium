@@ -23,8 +23,6 @@ const proto = {
   tick(board: BoardTile[][], location: Coordinate): Instruction[] {
     const { north, east, south, west } = adjacent(location);
 
-    board = [board[0]];
-
     if (viableTile(board, north)) {
       return [
         {
@@ -55,14 +53,17 @@ const proto = {
       ];
     }
 
-    /*if (viableTile(board, west)) {*/
-    return [
-      {
-        entity: this.name,
-        verb: Verb.reproduce,
-        location: west
-      }
-    ];
+    if (viableTile(board, west)) {
+      return [
+        {
+          entity: this.name,
+          verb: Verb.reproduce,
+          location: west
+        }
+      ];
+    }
+
+    return [];
   }
 };
 

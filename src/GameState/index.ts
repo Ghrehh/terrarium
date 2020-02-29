@@ -1,10 +1,13 @@
 import BoardTile from 'BoardTile';
-import Instruction from 'Instruction';
+import Name from 'entities/Name';
+import Plant from 'entities/Plant';
+import Instruction, { Verb } from 'Instruction';
 
 interface GameStateInterface {
   board: BoardTile[][];
   log: string[];
   tick(): void;
+  applyInstructions(instructions: Instruction[]): void;
   boardWidth: number;
   boardHeight: number;
 }
@@ -17,6 +20,23 @@ const GameState = (
     log: [],
     boardWidth: 30,
     boardHeight: 30,
+    applyInstructions(instructions: Instruction[]) {
+      instructions.forEach((instruction: Instruction) => {
+        const { x, y } = instruction.location;
+
+        if (
+          instruction.entity === Name.plant &&
+          instruction.verb === Verb.reproduce &&
+          this.board[y] !== undefined &&
+          this.board[y][x] !== undefined &&
+          this.board[y][x].soilFertilized &&
+          this.board[y][x].entity === null
+        ) {
+          this.board[y][x].entity = Plant();
+          this.board[y][x].soilFertilized = false;
+        }
+      });
+    },
     tick() {
       let instructions: Instruction[] = [];
       this.board.forEach((boardRow, y) => {
@@ -27,6 +47,7 @@ const GameState = (
           instructions = instructions.concat(entity.tick(this.board, { x, y }));
         });
       });
+      this.applyInstructions(instructions);
       console.log(instructions);
     }
   };

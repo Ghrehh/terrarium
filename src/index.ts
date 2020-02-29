@@ -16,7 +16,7 @@ gameState.board[0][0].entity = p;
 const symbolForTile = (tile: BoardTile): string => {
   if (tile.entity === null && !tile.soilFertilized) return '■';
   if (tile.entity === null) return '~';
-  if (tile.entity.name === EntityName.plant) return 'Ï';
+  if (tile.entity.name === EntityName.plant) return 'T';
 
   return 'x';
 };
@@ -33,4 +33,4 @@ setInterval(() => {
   }
 
   console.log(finalOutput);
-}, 1000);
+}, 200);
