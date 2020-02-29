@@ -1,72 +1,72 @@
-import BoardTile from 'BoardTile';
+import { Board } from 'Board';
 import Name from './Name';
 import Coordinate, { adjacent } from 'Coordinate';
 import Instruction, { Verb } from 'Instruction';
 
-const viableTile = (board: BoardTile[][], coordinate: Coordinate): boolean => {
-  if (board[coordinate.y] === undefined) return false;
+export interface Plant {
+  born: number;
+  lifespan: number;
+  name: Name;
+  tick(board: Board, location: Coordinate): Instruction[];
+}
 
-  const tile = board[coordinate.y][coordinate.x];
-  if (tile === undefined) return false;
+const NewPlant = (currentTime: number): Plant => {
+  const proto = {
+    born: currentTime,
+    lifespan: 30,
 
-  return tile.entity === null && tile.soilFertilized;
+    get name(): Name {
+      return Name.plant;
+    },
+
+    tick(board: Board, location: Coordinate): Instruction[] {
+      const { north, east, south, west } = adjacent(location);
+
+      if (board.tileEmptyAndFertile(north)) {
+        return [
+          {
+            entity: this.name,
+            verb: Verb.reproduce,
+            location: north
+          }
+        ];
+      }
+
+      if (board.tileEmptyAndFertile(east)) {
+        return [
+          {
+            entity: this.name,
+            verb: Verb.reproduce,
+            location: east
+          }
+        ];
+      }
+
+      if (board.tileEmptyAndFertile(south)) {
+        return [
+          {
+            entity: this.name,
+            verb: Verb.reproduce,
+            location: south
+          }
+        ];
+      }
+
+      if (board.tileEmptyAndFertile(west)) {
+        return [
+          {
+            entity: this.name,
+            verb: Verb.reproduce,
+            location: west
+          }
+        ];
+      }
+
+      return [];
+    }
+  };
+
+  return proto;
 };
 
-const proto = {
-  born: 0,
-  lifespan: 30,
-
-  get name(): Name {
-    return Name.plant;
-  },
-
-  tick(board: BoardTile[][], location: Coordinate): Instruction[] {
-    const { north, east, south, west } = adjacent(location);
-
-    if (viableTile(board, north)) {
-      return [
-        {
-          entity: this.name,
-          verb: Verb.reproduce,
-          location: north
-        }
-      ];
-    }
-
-    if (viableTile(board, east)) {
-      return [
-        {
-          entity: this.name,
-          verb: Verb.reproduce,
-          location: east
-        }
-      ];
-    }
-
-    if (viableTile(board, south)) {
-      return [
-        {
-          entity: this.name,
-          verb: Verb.reproduce,
-          location: south
-        }
-      ];
-    }
-
-    if (viableTile(board, west)) {
-      return [
-        {
-          entity: this.name,
-          verb: Verb.reproduce,
-          location: west
-        }
-      ];
-    }
-
-    return [];
-  }
-};
-
-const newPlant = () => Object.create(proto);
-
-export default newPlant;
+export default NewPlant;
