@@ -3,7 +3,8 @@ import Name from 'entities/Name';
 import NewPlant from 'entities/Plant';
 import Instruction, { Verb } from 'Instruction';
 
-interface Game {
+export interface Game {
+  currentTick: number;
   board: Board;
   tick(): void;
   applyInstructions(instructions: Instruction[]): void;
@@ -11,6 +12,7 @@ interface Game {
 
 const NewGame = (randomInteger: (_: number) => number): Game => {
   return {
+    currentTick: 0,
     board: NewBoard(),
     applyInstructions(instructions: Instruction[]) {
       instructions.forEach((instruction: Instruction) => {
@@ -21,8 +23,16 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
         ) {
           const tile = this.board.getTile(instruction.location);
           if (tile !== null) {
-            tile.entity = NewPlant(0);
+            tile.entity = NewPlant(this.currentTick);
             tile.soilFertilized = false;
+          }
+        } else if (
+          instruction.entity === Name.plant &&
+          instruction.verb === Verb.die
+        ) {
+          const tile = this.board.getTile(instruction.location);
+          if (tile !== null) {
+            tile.entity = null;
           }
         }
       });
@@ -34,10 +44,11 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
           const entity = tile.entity;
           if (entity === null) return;
 
-          instructions = instructions.concat(entity.tick(this.board, { x, y }));
+          instructions = instructions.concat(entity.tick(this, { x, y }));
         });
       });
       this.applyInstructions(instructions);
+      this.currentTick += 1;
       //console.log(instructions);
     }
   };

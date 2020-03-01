@@ -1,4 +1,4 @@
-import { Board } from 'Board';
+import { Game } from 'Game';
 import Name from './Name';
 import Coordinate, { adjacent } from 'Coordinate';
 import Instruction, { Verb } from 'Instruction';
@@ -7,7 +7,7 @@ export interface Plant {
   born: number;
   lifespan: number;
   name: Name;
-  tick(board: Board, location: Coordinate): Instruction[];
+  tick(game: Game, location: Coordinate): Instruction[];
 }
 
 const NewPlant = (currentTime: number): Plant => {
@@ -19,50 +19,35 @@ const NewPlant = (currentTime: number): Plant => {
       return Name.plant;
     },
 
-    tick(board: Board, location: Coordinate): Instruction[] {
+    tick(game: Game, location: Coordinate): Instruction[] {
       const { north, east, south, west } = adjacent(location);
 
-      if (board.tileEmptyAndFertile(north)) {
-        return [
-          {
-            entity: this.name,
-            verb: Verb.reproduce,
-            location: north
-          }
-        ];
+      const instructions: Instruction[] = [];
+      const reproduceInstruction = (location: Coordinate) => ({
+        entity: this.name,
+        verb: Verb.reproduce,
+        location
+      });
+
+      if (game.board.tileEmptyAndFertile(north)) {
+        instructions.push(reproduceInstruction(north));
+      } else if (game.board.tileEmptyAndFertile(east)) {
+        instructions.push(reproduceInstruction(east));
+      } else if (game.board.tileEmptyAndFertile(south)) {
+        instructions.push(reproduceInstruction(south));
+      } else if (game.board.tileEmptyAndFertile(west)) {
+        instructions.push(reproduceInstruction(west));
       }
 
-      if (board.tileEmptyAndFertile(east)) {
-        return [
-          {
-            entity: this.name,
-            verb: Verb.reproduce,
-            location: east
-          }
-        ];
+      if (game.currentTick - this.born > this.lifespan) {
+        instructions.push({
+          entity: this.name,
+          verb: Verb.die,
+          location
+        });
       }
 
-      if (board.tileEmptyAndFertile(south)) {
-        return [
-          {
-            entity: this.name,
-            verb: Verb.reproduce,
-            location: south
-          }
-        ];
-      }
-
-      if (board.tileEmptyAndFertile(west)) {
-        return [
-          {
-            entity: this.name,
-            verb: Verb.reproduce,
-            location: west
-          }
-        ];
-      }
-
-      return [];
+      return instructions;
     }
   };
 

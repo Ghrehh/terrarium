@@ -1,3 +1,4 @@
+import { Game } from 'Game';
 import Instruction from 'Instruction';
 import Coordinate from 'Coordinate';
 import NewPlant from 'entities/Plant';
@@ -9,7 +10,7 @@ export interface Tile {
 
 interface Entity {
   name: string;
-  tick(board: Board, location: Coordinate): Instruction[];
+  tick(game: Game, location: Coordinate): Instruction[];
 }
 
 export interface Board {
@@ -33,6 +34,7 @@ const NewBoard = (): Board => {
   }
 
   board[0][0].entity = NewPlant(0);
+  board[0][0].soilFertilized = false;
 
   return {
     width,

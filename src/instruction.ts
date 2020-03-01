@@ -2,7 +2,8 @@ import Coordinate from 'Coordinate';
 import Name from 'entities/Name';
 
 export enum Verb {
-  reproduce = 'reproduce'
+  reproduce = 'reproduce',
+  die = 'die'
 }
 
 export default interface Instruction {
