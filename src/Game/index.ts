@@ -2,6 +2,7 @@ import NewBoard, { Board } from 'Board';
 import Name from 'entities/Name';
 import NewPlant from 'entities/Plant';
 import Instruction, { Verb } from 'Instruction';
+import NewCoordinate from 'Coordinate';
 
 export interface Game {
   currentTick: number;
@@ -44,7 +45,13 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
           const entity = tile.entity;
           if (entity === null) return;
 
-          instructions = instructions.concat(entity.tick(this, { x, y }));
+          instructions = instructions.concat(
+            entity.tick({
+              currentTick: this.currentTick,
+              board: this.board,
+              location: NewCoordinate({ x, y })
+            })
+          );
         });
       });
       this.applyInstructions(instructions);

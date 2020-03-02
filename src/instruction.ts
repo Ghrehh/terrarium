@@ -1,4 +1,4 @@
-import Coordinate from 'Coordinate';
+import { Coordinate } from 'Coordinate';
 import Name from 'entities/Name';
 
 export enum Verb {
@@ -9,5 +9,5 @@ export enum Verb {
 export default interface Instruction {
   entity: Name;
   verb: Verb;
-  location: Coordinate;
+  location: { x: number, y: number };
 }

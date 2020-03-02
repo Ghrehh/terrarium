@@ -1,30 +1,45 @@
-export default interface Coordinate {
+export interface Coordinate {
   x: number;
   y: number;
+  north(): Coordinate;
+  northEast(): Coordinate;
+  east(): Coordinate;
+  southEast(): Coordinate;
+  south(): Coordinate;
+  southWest(): Coordinate;
+  west(): Coordinate;
+  northWest(): Coordinate;
 }
 
-export const adjacent = (
-  coordinate: Coordinate
-): {
-  north: Coordinate;
-  northEast: Coordinate;
-  east: Coordinate;
-  southEast: Coordinate;
-  south: Coordinate;
-  southWest: Coordinate;
-  west: Coordinate;
-  northWest: Coordinate;
-} => {
-  const { x, y } = coordinate;
-
+const NewCoordinate = ({ x, y }: { x: number; y: number }): Coordinate => {
   return {
-    north: { x, y: y - 1 },
-    northEast: { x: x + 1, y: y - 1 },
-    east: { x: x + 1, y },
-    southEast: { x: x + 1, y: y + 1 },
-    south: { x, y: y + 1 },
-    southWest: { x: x - 1, y: y + 1 },
-    west: { x: x - 1, y },
-    northWest: { x: x - 1, y: y - 1 }
+    x,
+    y,
+    north(): Coordinate {
+      return NewCoordinate({ x: this.x, y: this.y - 1 });
+    },
+    northEast(): Coordinate {
+      return NewCoordinate({ x: this.x + 1, y: this.y - 1 });
+    },
+    east(): Coordinate {
+      return NewCoordinate({ x: this.x + 1, y: this.y });
+    },
+    southEast(): Coordinate {
+      return NewCoordinate({ x: this.x + 1, y: this.y + 1 });
+    },
+    south(): Coordinate {
+      return NewCoordinate({ x: this.x, y: this.y + 1 });
+    },
+    southWest(): Coordinate {
+      return NewCoordinate({ x: this.x - 1, y: this.y + 1 });
+    },
+    west(): Coordinate {
+      return NewCoordinate({ x: this.x - 1, y: this.y });
+    },
+    northWest(): Coordinate {
+      return NewCoordinate({ x: this.x - 1, y: this.y - 1 });
+    }
   };
 };
+
+export default NewCoordinate;
