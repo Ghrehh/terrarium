@@ -2,6 +2,7 @@ import { Game } from 'Game';
 import Instruction from 'Instruction';
 import { Coordinate } from 'Coordinate';
 import NewPlant from 'entities/Plant';
+import NewHerbivore from 'entities/Herbivore';
 
 interface Tick {
   board: Board;
@@ -26,6 +27,7 @@ export interface Board {
   tiles: Tile[][];
   getTile(location: { x: number; y: number }): Tile | null;
   tileEmptyAndFertile(location: { x: number; y: number }): boolean;
+  tileEmpty(location: { x: number; y: number }): boolean;
 }
 
 const NewBoard = (): Board => {
@@ -43,6 +45,8 @@ const NewBoard = (): Board => {
   board[0][0].entity = NewPlant(0);
   board[0][0].soilFertilized = false;
 
+  board[20][20].entity = NewHerbivore(0);
+
   return {
     width,
     height,
@@ -57,6 +61,10 @@ const NewBoard = (): Board => {
     tileEmptyAndFertile(location: { x: number; y: number }): boolean {
       const tile = this.getTile(location);
       return tile !== null && tile.entity === null && tile.soilFertilized;
+    },
+    tileEmpty(location: { x: number; y: number }): boolean {
+      const tile = this.getTile(location);
+      return tile !== null && tile.entity === null;
     },
     tiles: board
   };

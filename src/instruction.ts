@@ -3,7 +3,8 @@ import Name from 'entities/Name';
 
 export enum Verb {
   reproduce = 'reproduce',
-  die = 'die'
+  die = 'die',
+  move = 'move'
 }
 
 export default interface Instruction {

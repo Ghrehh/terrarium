@@ -14,6 +14,7 @@ const symbolForTile = (tile: Tile | null): string => {
   if (tile.entity === null && !tile.soilFertilized) return '■';
   if (tile.entity === null) return '~';
   if (tile.entity.name === EntityName.plant) return 'T';
+  if (tile.entity.name === EntityName.herbivore) return 'H';
 
   return 'x';
 };

@@ -37,6 +37,14 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
           instruction.verb === Verb.die
         ) {
           targetTile.entity = null;
+        } else if (
+          instruction.sourceName === Name.herbivore &&
+          instruction.verb === Verb.move &&
+          targetTile.entity === null &&
+          sourceTile.entity !== null
+        ) {
+          targetTile.entity = sourceTile.entity;
+          sourceTile.entity = null;
         }
       });
     },

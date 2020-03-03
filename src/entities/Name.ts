@@ -1,5 +1,6 @@
 enum Name {
-  plant = 'plant'
+  plant = 'plant',
+  herbivore = 'herbivore'
 }
 
 export default Name;
