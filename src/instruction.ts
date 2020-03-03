@@ -7,7 +7,9 @@ export enum Verb {
 }
 
 export default interface Instruction {
-  entity: Name;
+  sourceName: Name;
   verb: Verb;
-  location: Coordinate;
+  sourceLocation: Coordinate;
+  executorLocation: Coordinate;
+  targetLocation: Coordinate;
 }

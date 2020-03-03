@@ -55,9 +55,11 @@ describe('newPlant', () => {
 
       it('returns the correct instruction', () => {
         expect(plant.tick({ board, location, currentTick }).length).toBe(1);
-        expect(plant.tick({ board, location, currentTick })[0].location).toBe(northCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].targetLocation).toBe(northCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].sourceLocation).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].executorLocation).toBe(location);
         expect(plant.tick({ board, location, currentTick })[0].verb).toBe(Verb.reproduce);
-        expect(plant.tick({ board, location, currentTick })[0].entity).toBe(Name.plant);
+        expect(plant.tick({ board, location, currentTick })[0].sourceName).toBe(Name.plant);
       });
     });
 
@@ -68,9 +70,11 @@ describe('newPlant', () => {
 
       it('returns the correct instruction', () => {
         expect(plant.tick({ board, location, currentTick }).length).toBe(1);
-        expect(plant.tick({ board, location, currentTick })[0].location).toBe(eastCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].targetLocation).toBe(eastCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].sourceLocation).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].executorLocation).toBe(location);
         expect(plant.tick({ board, location, currentTick })[0].verb).toBe(Verb.reproduce);
-        expect(plant.tick({ board, location, currentTick })[0].entity).toBe(Name.plant);
+        expect(plant.tick({ board, location, currentTick })[0].sourceName).toBe(Name.plant);
       });
     });
 
@@ -81,9 +85,11 @@ describe('newPlant', () => {
 
       it('returns the correct instruction', () => {
         expect(plant.tick({ board, location, currentTick }).length).toBe(1);
-        expect(plant.tick({ board, location, currentTick })[0].location).toBe(southCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].targetLocation).toBe(southCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].sourceLocation).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].executorLocation).toBe(location);
         expect(plant.tick({ board, location, currentTick })[0].verb).toBe(Verb.reproduce);
-        expect(plant.tick({ board, location, currentTick })[0].entity).toBe(Name.plant);
+        expect(plant.tick({ board, location, currentTick })[0].sourceName).toBe(Name.plant);
       });
     });
 
@@ -94,9 +100,11 @@ describe('newPlant', () => {
 
       it('returns the correct instruction', () => {
         expect(plant.tick({ board, location, currentTick }).length).toBe(1);
-        expect(plant.tick({ board, location, currentTick })[0].location).toBe(westCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].targetLocation).toBe(westCoordinate);
+        expect(plant.tick({ board, location, currentTick })[0].sourceLocation).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].executorLocation).toBe(location);
         expect(plant.tick({ board, location, currentTick })[0].verb).toBe(Verb.reproduce);
-        expect(plant.tick({ board, location, currentTick })[0].entity).toBe(Name.plant);
+        expect(plant.tick({ board, location, currentTick })[0].sourceName).toBe(Name.plant);
       });
     });
 
@@ -119,9 +127,11 @@ describe('newPlant', () => {
 
       it('returns the correct instruction', () => {
         expect(plant.tick({ board, location, currentTick }).length).toBe(1);
-        expect(plant.tick({ board, location, currentTick })[0].location).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].executorLocation).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].sourceLocation).toBe(location);
+        expect(plant.tick({ board, location, currentTick })[0].executorLocation).toBe(location);
         expect(plant.tick({ board, location, currentTick })[0].verb).toBe(Verb.die);
-        expect(plant.tick({ board, location, currentTick })[0].entity).toBe(Name.plant);
+        expect(plant.tick({ board, location, currentTick })[0].sourceName).toBe(Name.plant);
       });
     });
   });

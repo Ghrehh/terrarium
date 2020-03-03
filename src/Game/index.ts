@@ -18,20 +18,20 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
     applyInstructions(instructions: Instruction[]) {
       instructions.forEach((instruction: Instruction) => {
         if (
-          instruction.entity === Name.plant &&
+          instruction.sourceName === Name.plant &&
           instruction.verb === Verb.reproduce &&
-          this.board.tileEmptyAndFertile(instruction.location)
+          this.board.tileEmptyAndFertile(instruction.targetLocation)
         ) {
-          const tile = this.board.getTile(instruction.location);
+          const tile = this.board.getTile(instruction.targetLocation);
           if (tile !== null) {
             tile.entity = NewPlant(this.currentTick);
             tile.soilFertilized = false;
           }
         } else if (
-          instruction.entity === Name.plant &&
+          instruction.sourceName === Name.plant &&
           instruction.verb === Verb.die
         ) {
-          const tile = this.board.getTile(instruction.location);
+          const tile = this.board.getTile(instruction.targetLocation);
           if (tile !== null) {
             tile.entity = null;
           }

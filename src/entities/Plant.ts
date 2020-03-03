@@ -30,10 +30,12 @@ const NewPlant = (currentTime: number): Plant => {
 
     tick({ board, currentTick, location }: Tick): Instruction[] {
       const instructions: Instruction[] = [];
-      const reproduceInstruction = (location: Coordinate) => ({
-        entity: this.name,
+      const reproduceInstruction = (reproduceLocation: Coordinate) => ({
+        sourceName: this.name,
         verb: Verb.reproduce,
-        location
+        sourceLocation: location,
+        executorLocation: location,
+        targetLocation: reproduceLocation
       });
 
       if (board.tileEmptyAndFertile(location.north())) {
@@ -48,9 +50,11 @@ const NewPlant = (currentTime: number): Plant => {
 
       if (currentTick - this.born > this.lifespan) {
         instructions.push({
-          entity: this.name,
+          sourceName: this.name,
           verb: Verb.die,
-          location
+          sourceLocation: location,
+          executorLocation: location,
+          targetLocation: location
         });
       }
 
