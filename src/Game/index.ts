@@ -17,24 +17,26 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
     board: NewBoard(),
     applyInstructions(instructions: Instruction[]) {
       instructions.forEach((instruction: Instruction) => {
+        const sourceTile = this.board.getTile(instruction.sourceLocation);
+        const targetTile = this.board.getTile(instruction.targetLocation);
+
+        if (sourceTile === null || targetTile === null) {
+          throw 'sourceTile or targetTile missing';
+        }
+
         if (
           instruction.sourceName === Name.plant &&
           instruction.verb === Verb.reproduce &&
-          this.board.tileEmptyAndFertile(instruction.targetLocation)
+          targetTile.entity === null &&
+          sourceTile.entity !== null
         ) {
-          const tile = this.board.getTile(instruction.targetLocation);
-          if (tile !== null) {
-            tile.entity = NewPlant(this.currentTick);
-            tile.soilFertilized = false;
-          }
+          targetTile.entity = sourceTile.entity.reproduce(this.currentTick);
+          targetTile.soilFertilized = false;
         } else if (
           instruction.sourceName === Name.plant &&
           instruction.verb === Verb.die
         ) {
-          const tile = this.board.getTile(instruction.targetLocation);
-          if (tile !== null) {
-            tile.entity = null;
-          }
+          targetTile.entity = null;
         }
       });
     },

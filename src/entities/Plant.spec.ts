@@ -15,16 +15,8 @@ describe('newPlant', () => {
     expect(plant.name).toBe('plant');
   });
 
-  it('lifespan', () => {
-    expect(plant.lifespan).toBe(60);
-  });
-
-  it('born', () => {
-    expect(plant.born).toBe(0);
-  });
-
   describe('tick', () => {
-    let currentTick = 0;
+    let currentTick = 31;
     const northCoordinate = NewCoordinate({ x: 0, y: 0 });
     const eastCoordinate = NewCoordinate({ x: 0, y: 0 });
     const southCoordinate = NewCoordinate({ x: 0, y: 0 });
@@ -122,7 +114,7 @@ describe('newPlant', () => {
     describe('death', () => {
       beforeEach(() => {
         validTile = NewCoordinate({ x: 0, y: 0 });
-        currentTick = 61;
+        currentTick = 121;
       });
 
       it('returns the correct instruction', () => {

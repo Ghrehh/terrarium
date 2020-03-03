@@ -10,20 +10,23 @@ interface Tick {
 }
 
 export interface Plant {
-  born: number;
-  lifespan: number;
-  lastReproduced: number;
   name: Name;
   tick(_: Tick): Instruction[];
-  applyInstruction(board: Board, instruction: Instruction): Board;
+  reproduce(currentTick: number): Plant;
 }
 
-const NewPlant = (currentTime: number): Plant => {
-  const proto = {
-    born: currentTime,
-    lifespan: 60,
-    lastReproduced: 0,
+const NewPlant = (currentTick: number): Plant => {
+  const born = currentTick;
+  const lifespan = 120;
+  const reproduceCooldown = 30;
 
+  let lastReproduced = currentTick;
+
+  const canReproduce = (currentTick: number): boolean => {
+    return lastReproduced + reproduceCooldown < currentTick;
+  }
+
+  const proto = {
     get name(): Name {
       return Name.plant;
     },
@@ -38,17 +41,19 @@ const NewPlant = (currentTime: number): Plant => {
         targetLocation: reproduceLocation
       });
 
-      if (board.tileEmptyAndFertile(location.north())) {
-        instructions.push(reproduceInstruction(location.north()));
-      } else if (board.tileEmptyAndFertile(location.east())) {
-        instructions.push(reproduceInstruction(location.east()));
-      } else if (board.tileEmptyAndFertile(location.south())) {
-        instructions.push(reproduceInstruction(location.south()));
-      } else if (board.tileEmptyAndFertile(location.west())) {
-        instructions.push(reproduceInstruction(location.west()));
+      if (canReproduce(currentTick)) {
+        if (board.tileEmptyAndFertile(location.north())) {
+          instructions.push(reproduceInstruction(location.north()));
+        } else if (board.tileEmptyAndFertile(location.east())) {
+          instructions.push(reproduceInstruction(location.east()));
+        } else if (board.tileEmptyAndFertile(location.south())) {
+          instructions.push(reproduceInstruction(location.south()));
+        } else if (board.tileEmptyAndFertile(location.west())) {
+          instructions.push(reproduceInstruction(location.west()));
+        }
       }
 
-      if (currentTick - this.born > this.lifespan) {
+      if (currentTick - born > lifespan) {
         instructions.push({
           sourceName: this.name,
           verb: Verb.die,
@@ -60,8 +65,9 @@ const NewPlant = (currentTime: number): Plant => {
 
       return instructions;
     },
-    applyInstruction(board: Board, instruction: Instruction): Board {
-      return board;
+    reproduce(currentTick: number): Plant {
+      lastReproduced = currentTick;
+      return NewPlant(currentTick);
     }
   };
 
