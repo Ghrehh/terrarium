@@ -1,5 +1,5 @@
 import { Game } from 'Game';
-import NewPlant, { Plant, Location } from './Plant';
+import NewPlant, { Plant } from './Plant';
 import NewCoordinate, { Coordinate } from 'Coordinate';
 import Name from './Name';
 import { Verb } from 'Instruction';
@@ -16,7 +16,7 @@ describe('newPlant', () => {
   });
 
   it('lifespan', () => {
-    expect(plant.lifespan).toBe(30);
+    expect(plant.lifespan).toBe(60);
   });
 
   it('born', () => {
@@ -30,7 +30,7 @@ describe('newPlant', () => {
     const southCoordinate = NewCoordinate({ x: 0, y: 0 });
     const westCoordinate = NewCoordinate({ x: 0, y: 0 });
 
-    let validTile: Location;
+    let validTile: Coordinate;
 
     const board = {
       tileEmptyAndFertile(location: Coordinate): boolean {
@@ -39,6 +39,7 @@ describe('newPlant', () => {
     };
 
     const location = {
+      ...NewCoordinate({ x: 0, y: 0 }),
       x: 0,
       y: 0,
       north(): Coordinate { return northCoordinate },
@@ -113,7 +114,7 @@ describe('newPlant', () => {
     describe('death', () => {
       beforeEach(() => {
         validTile = NewCoordinate({ x: 0, y: 0 });
-        currentTick = 31;
+        currentTick = 61;
       });
 
       it('returns the correct instruction', () => {

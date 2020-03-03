@@ -3,32 +3,26 @@ import { Board } from 'Board';
 import NewCoordinate, { Coordinate } from 'Coordinate';
 import Instruction, { Verb } from 'Instruction';
 
-export interface Location {
-  x: number;
-  y: number;
-  north(): Coordinate;
-  east(): Coordinate;
-  south(): Coordinate;
-  west(): Coordinate;
-}
-
 interface Tick {
   board: { tileEmptyAndFertile(_: Coordinate): boolean };
   currentTick: number;
-  location: Location;
+  location: Coordinate;
 }
 
 export interface Plant {
   born: number;
   lifespan: number;
+  lastReproduced: number;
   name: Name;
   tick(_: Tick): Instruction[];
+  applyInstruction(board: Board, instruction: Instruction): Board;
 }
 
 const NewPlant = (currentTime: number): Plant => {
   const proto = {
     born: currentTime,
-    lifespan: 30,
+    lifespan: 60,
+    lastReproduced: 0,
 
     get name(): Name {
       return Name.plant;
@@ -61,6 +55,9 @@ const NewPlant = (currentTime: number): Plant => {
       }
 
       return instructions;
+    },
+    applyInstruction(board: Board, instruction: Instruction): Board {
+      return board;
     }
   };
 

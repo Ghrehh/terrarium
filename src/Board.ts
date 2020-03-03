@@ -17,6 +17,7 @@ export interface Tile {
 interface Entity {
   name: string;
   tick(_: Tick): Instruction[];
+  applyInstruction(board: Board, instruction: Instruction): Board;
 }
 
 export interface Board {

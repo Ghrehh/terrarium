@@ -9,5 +9,5 @@ export enum Verb {
 export default interface Instruction {
   entity: Name;
   verb: Verb;
-  location: { x: number, y: number };
+  location: Coordinate;
 }
