@@ -1,14 +1,9 @@
 import Coordinate from 'Coordinate';
-
-interface Tick {
-  board: Board;
-  currentTick: number;
-  location: Coordinate;
-}
+import Entity from 'entities/Entity';
 
 export interface Tile {
   soilFertilized: boolean;
-  entity: null;
+  entity: Entity | null;
 }
 
 export default class Board {
@@ -30,7 +25,7 @@ export default class Board {
     //this.tiles[20][20].entity = NewHerbivore(0);
   }
 
-  getTile({ x, y }: { x: number; y: number }): Tile | null {
+  getTile({ x, y }: Coordinate): Tile | null {
     if (this.tiles[y] === undefined) return null;
 
     const tile = this.tiles[y][x];
@@ -38,11 +33,11 @@ export default class Board {
 
     return tile;
   }
-  tileEmptyAndFertile(location: { x: number; y: number }): boolean {
+  tileEmptyAndFertile(location: Coordinate): boolean {
     const tile = this.getTile(location);
     return tile !== null && tile.entity === null && tile.soilFertilized;
   }
-  tileEmpty(location: { x: number; y: number }): boolean {
+  tileEmpty(location: Coordinate): boolean {
     const tile = this.getTile(location);
     return tile !== null && tile.entity === null;
   }
