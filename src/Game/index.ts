@@ -1,7 +1,5 @@
 import Board from 'Board';
-import Name from 'entities/Name';
-import { Instruction } from 'Instruction';
-import Coordinate from 'Coordinate';
+import Instruction from 'instructions/Instruction';
 
 export interface Game {
   currentTick: number;

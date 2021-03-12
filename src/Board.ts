@@ -7,8 +7,9 @@ export interface Tile {
 }
 
 export default class Board {
-  width = 30;
-  height = 30;
+  readonly width = 30;
+  readonly height = 30;
+  readonly currentCycle = 0;
   tiles: Tile[][] = [];
 
   constructor() {
@@ -23,6 +24,19 @@ export default class Board {
     this.tiles[0][0].soilFertilized = false;
 
     //this.tiles[20][20].entity = NewHerbivore(0);
+  }
+
+  coordinateForEntity(entity: Entity): Coordinate {
+    for (let rowIndex = 0; rowIndex < this.tiles.length; rowIndex++) {
+      const tileRow = this.tiles[rowIndex];
+      for (let tileIndex = 0; tileIndex < tileRow.length; tileIndex++) {
+        const tile = tileRow[tileIndex];
+
+        if (tile?.entity === entity) return new Coordinate(rowIndex, tileIndex);
+      }
+    }
+
+    throw 'could not find entity';
   }
 
   getTile({ x, y }: Coordinate): Tile | null {
