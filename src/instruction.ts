@@ -1,16 +1,17 @@
 import Coordinate from 'Coordinate';
-import Name from 'entities/Name';
 
-export enum Verb {
-  reproduce = 'reproduce',
-  die = 'die',
-  move = 'move'
+export interface MoveInstruction {
+  start: Coordinate;
+  end: Coordinate;
 }
 
-export default interface Instruction {
-  sourceName: Name;
-  verb: Verb;
-  sourceLocation: Coordinate;
-  executorLocation: Coordinate;
+export interface DieInstruction {
+  entityLocation: Coordinate;
+}
+
+export interface ReproduceInstruction {
+  entityLocation: Coordinate;
   targetLocation: Coordinate;
 }
+
+export type Instruction = MoveInstruction | DieInstruction | ReproduceInstruction

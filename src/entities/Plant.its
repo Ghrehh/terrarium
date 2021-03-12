@@ -1,21 +1,22 @@
+/*
 import Name from './Name';
 import Board from 'Board';
 import Coordinate from 'Coordinate';
 import Instruction, { Verb } from 'Instruction';
 
 interface Tick {
-  board: { tileEmpty(_: Coordinate): boolean };
+  board: { tileEmptyAndFertile(_: Coordinate): boolean };
   currentTick: number;
   location: Coordinate;
 }
 
-export interface Herbivore {
+export interface Plant {
   name: Name;
   tick(_: Tick): Instruction[];
-  reproduce(currentTick: number): Herbivore;
+  reproduce(currentTick: number): Plant;
 }
 
-const NewHerbivore = (currentTick: number): Herbivore => {
+const NewPlant = (currentTick: number): Plant => {
   const born = currentTick;
   const lifespan = 120;
   const reproduceCooldown = 30;
@@ -24,31 +25,33 @@ const NewHerbivore = (currentTick: number): Herbivore => {
 
   const canReproduce = (currentTick: number): boolean => {
     return lastReproduced + reproduceCooldown < currentTick;
-  };
+  }
 
   const proto = {
     get name(): Name {
-      return Name.herbivore;
+      return Name.plant;
     },
 
     tick({ board, currentTick, location }: Tick): Instruction[] {
       const instructions: Instruction[] = [];
-      const moveInstruction = (moveLocation: Coordinate) => ({
+      const reproduceInstruction = (reproduceLocation: Coordinate) => ({
         sourceName: this.name,
-        verb: Verb.move,
+        verb: Verb.reproduce,
         sourceLocation: location,
         executorLocation: location,
-        targetLocation: moveLocation
+        targetLocation: reproduceLocation
       });
 
-      if (board.tileEmpty(location.north())) {
-        instructions.push(moveInstruction(location.north()));
-      } else if (board.tileEmpty(location.east())) {
-        instructions.push(moveInstruction(location.east()));
-      } else if (board.tileEmpty(location.south())) {
-        instructions.push(moveInstruction(location.south()));
-      } else if (board.tileEmpty(location.west())) {
-        instructions.push(moveInstruction(location.west()));
+      if (canReproduce(currentTick)) {
+        if (board.tileEmptyAndFertile(location.north())) {
+          instructions.push(reproduceInstruction(location.north()));
+        } else if (board.tileEmptyAndFertile(location.east())) {
+          instructions.push(reproduceInstruction(location.east()));
+        } else if (board.tileEmptyAndFertile(location.south())) {
+          instructions.push(reproduceInstruction(location.south()));
+        } else if (board.tileEmptyAndFertile(location.west())) {
+          instructions.push(reproduceInstruction(location.west()));
+        }
       }
 
       if (currentTick - born > lifespan) {
@@ -63,13 +66,14 @@ const NewHerbivore = (currentTick: number): Herbivore => {
 
       return instructions;
     },
-    reproduce(currentTick: number): Herbivore {
+    reproduce(currentTick: number): Plant {
       lastReproduced = currentTick;
-      return NewHerbivore(currentTick);
+      return NewPlant(currentTick);
     }
   };
 
   return proto;
 };
 
-export default NewHerbivore;
+export default NewPlant;
+*/

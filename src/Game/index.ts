@@ -1,7 +1,6 @@
 import Board from 'Board';
 import Name from 'entities/Name';
-import NewPlant from 'entities/Plant';
-import Instruction, { Verb } from 'Instruction';
+import { Instruction } from 'Instruction';
 import Coordinate from 'Coordinate';
 
 export interface Game {
@@ -17,6 +16,7 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
     board: new Board(),
     applyInstructions(instructions: Instruction[]) {
       instructions.forEach((instruction: Instruction) => {
+        /*
         const sourceTile = this.board.getTile(instruction.sourceLocation);
         const targetTile = this.board.getTile(instruction.targetLocation);
 
@@ -45,7 +45,7 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
         ) {
           targetTile.entity = sourceTile.entity;
           sourceTile.entity = null;
-        }
+        }*/
       });
     },
     tick() {
@@ -56,11 +56,12 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
           if (entity === null) return;
 
           instructions = instructions.concat(
+            /*
             entity.tick({
               currentTick: this.currentTick,
               board: this.board,
               location: new Coordinate(x, y)
-            })
+            })*/
           );
         });
       });

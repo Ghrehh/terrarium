@@ -1,8 +1,4 @@
-import { Game } from 'Game';
-import Instruction from 'Instruction';
 import Coordinate from 'Coordinate';
-import NewPlant from 'entities/Plant';
-import NewHerbivore from 'entities/Herbivore';
 
 interface Tick {
   board: Board;
@@ -12,13 +8,7 @@ interface Tick {
 
 export interface Tile {
   soilFertilized: boolean;
-  entity: Entity | null;
-}
-
-interface Entity {
-  name: string;
-  tick(_: Tick): Instruction[];
-  reproduce(currentTick: number): Entity;
+  entity: null;
 }
 
 export default class Board {
@@ -34,10 +24,10 @@ export default class Board {
       }
     }
 
-    this.tiles[0][0].entity = NewPlant(0);
+    //this.tiles[0][0].entity = NewPlant(0);
     this.tiles[0][0].soilFertilized = false;
 
-    this.tiles[20][20].entity = NewHerbivore(0);
+    //this.tiles[20][20].entity = NewHerbivore(0);
   }
 
   getTile({ x, y }: { x: number; y: number }): Tile | null {
