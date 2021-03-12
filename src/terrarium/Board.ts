@@ -1,7 +1,7 @@
-import Coordinate from 'Coordinate';
-import Plant from 'entities/Plant';
-import Entity from 'entities/Entity';
-import Instruction from 'instructions/Instruction';
+import Coordinate from 't/Coordinate';
+import Plant from 't/entities/Plant';
+import Entity from 't/entities/Entity';
+import Instruction from 't/instructions/Instruction';
 
 export class Tile {
   soilFertilized: boolean;
@@ -88,11 +88,15 @@ export default class Board {
   }
 
   process(): void {
+    let instructions: Instruction[] = []
+    // get list of entities first
     this.forEach((tile) => {
-      const instructions = tile?.entity?.generateInstructions(this);
-      if (instructions) {
-        instructions.forEach((instruction) => instruction.apply(this));
+      const newInstructions = tile?.entity?.generateInstructions(this);
+      if (newInstructions) {
+        instructions = instructions.concat(newInstructions);
       }
     });
+    console.log(instructions);
+    instructions.forEach((instruction) => instruction.apply(this));
   }
 }

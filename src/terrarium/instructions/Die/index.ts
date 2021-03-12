@@ -1,7 +1,7 @@
-import Coordinate from 'Coordinate';
-import Entity from 'entities/Entity';
-import Instruction from 'instructions/Instruction';
-import Board from 'Board';
+import Coordinate from 't/Coordinate';
+import Entity from 't/entities/Entity';
+import Instruction from 't/instructions/Instruction';
+import Board from 't/Board';
 
 export default class Die extends Instruction {
   location: Coordinate;

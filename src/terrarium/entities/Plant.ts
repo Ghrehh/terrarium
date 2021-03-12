@@ -4,7 +4,7 @@ import {
   DieInstruction
 } from 'instructions';
 import Coordinate from 'Coordinate';
-import Board from 'board';
+import Board from 'Board';
 import Entity from 'entities/Entity';
 
 export default class Plant extends Entity {
