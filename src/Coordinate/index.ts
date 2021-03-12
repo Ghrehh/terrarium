@@ -1,3 +1,5 @@
+import Board from 'board';
+
 export default class Coordinate {
   x;
   y;
@@ -28,5 +30,20 @@ export default class Coordinate {
   }
   northWest(): Coordinate {
     return new Coordinate(this.x - 1, this.y - 1);
+  }
+  compassDirections(): (() => Coordinate)[] {
+    return [
+      () => this.north(),
+      () => this.northEast(),
+      () => this.east(),
+      () => this.southEast(),
+      () => this.south(),
+      () => this.southWest(),
+      () => this.west(),
+      () => this.northWest()
+    ];
+  }
+  inBounds(board: Board): boolean {
+    return this.x >= 0 && this.x < board.width && this.y >= 0 && this.y < board.height;
   }
 }

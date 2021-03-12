@@ -53,14 +53,15 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
           const entity = tile.entity;
           if (entity === null) return;
 
-          instructions = instructions.concat(
+          instructions = instructions
+            .concat
             /*
             entity.tick({
               currentTick: this.currentTick,
               board: this.board,
               location: new Coordinate(x, y)
             })*/
-          );
+            ();
         });
       });
       this.applyInstructions(instructions);

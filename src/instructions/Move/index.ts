@@ -12,9 +12,7 @@ export default class Move extends Instruction {
     this.end = end;
   }
 
-  apply(instruction: Instruction, board: Board): void {
-  }
+  apply(board: Board): void {}
 
-  revert(instruction: Instruction, board: Board): void {
-  }
+  revert(board: Board): void {}
 }

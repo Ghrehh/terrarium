@@ -1,3 +1,5 @@
+import { Readable } from 'stream';
+import { emitKeypressEvents } from 'readline';
 import Plant from 'entities/Plant';
 import { Tile } from 'Board';
 import Coordinate from 'Coordinate';
@@ -6,7 +8,6 @@ import Board from 'Board';
 const randomInteger = (max: number): number => {
   return Math.floor(Math.random() * Math.floor(max + 1));
 };
-
 
 const symbolForTile = (tile: Tile | null): string => {
   if (tile === null) return 'x';
@@ -17,9 +18,9 @@ const symbolForTile = (tile: Tile | null): string => {
 
   return 'x';
 };
+const board = new Board();
 
-setInterval(() => {
-  const board = new Board();
+const printBoard = (): void => {
   console.log('\x1Bc');
   let finalOutput = '';
   board.forEach((tile, rowEnd) => {
@@ -30,4 +31,23 @@ setInterval(() => {
   });
 
   console.log(finalOutput);
-}, 200);
+}
+
+const processKey = (key: string): void => {
+  if (key === 'right') {
+    board.process();
+    printBoard();
+  }
+}
+
+printBoard();
+emitKeypressEvents(process.stdin);
+process.stdin.setRawMode(true);
+
+process.stdin.on('keypress', (key, data) => {
+  if (data.ctrl && data.name === 'c') {
+    process.exit();
+  } else {
+    processKey(data.name);
+  }
+});

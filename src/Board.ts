@@ -3,32 +3,40 @@ import Plant from 'entities/Plant';
 import Entity from 'entities/Entity';
 import Instruction from 'instructions/Instruction';
 
-export interface Tile {
+export class Tile {
   soilFertilized: boolean;
   entity: Entity | null;
+
+  constructor(soilFertilized: boolean, entity: Entity | null) {
+    this.soilFertilized = soilFertilized;
+    this.entity = entity;
+  }
+
+  get empty() {
+    return this.entity === null;
+  }
+
+  get fertile() {
+    return this.soilFertilized;
+  }
 }
 
 export default class Board {
   readonly width = 30;
   readonly height = 30;
   readonly currentCycle = 0;
+
   tiles: Tile[][] = [];
 
   constructor() {
     for (let x = 0; x < this.height; x++) {
       this.tiles[x] = [];
       for (let y = 0; y < this.width; y++) {
-        this.tiles[x][y] = { soilFertilized: true, entity: null };
+        this.tiles[x][y] = new Tile(true, null);
       }
     }
 
-    this.setTile(
-      new Coordinate(0, 0),
-      {
-        entity: new Plant(this.currentCycle),
-        soilFertilized: false
-      }
-    )
+    this.setTile(new Coordinate(0, 0), new Tile(false, new Plant(this.currentCycle)));
 
     //this.tiles[20][20].entity = NewHerbivore(0);
   }
@@ -46,7 +54,9 @@ export default class Board {
     throw 'could not find entity';
   }
 
-  forEach(callback: (tile: Tile, rowEnd?: boolean, index?: number) => void): void {
+  forEach(
+    callback: (tile: Tile, rowEnd?: boolean, index?: number) => void
+  ): void {
     this.tiles.forEach((row, y) => {
       row.forEach((tile, x) => {
         callback(tile, x === row.length - 1, x * y);
@@ -72,17 +82,17 @@ export default class Board {
     this.tiles[y][x] = newTile;
   }
 
-  tileEmptyAndFertile(location: Coordinate): boolean {
-    const tile = this.getTile(location);
-    return tile !== null && tile.entity === null && tile.soilFertilized;
-  }
-
   tileEmpty(location: Coordinate): boolean {
     const tile = this.getTile(location);
     return tile !== null && tile.entity === null;
   }
 
   process(): void {
-    const instructions: Instruction[] = [];
+    this.forEach((tile) => {
+      const instructions = tile?.entity?.generateInstructions(this);
+      if (instructions) {
+        instructions.forEach((instruction) => instruction.apply(this));
+      }
+    });
   }
 }
