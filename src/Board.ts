@@ -21,53 +21,39 @@ interface Entity {
   reproduce(currentTick: number): Entity;
 }
 
-export interface Board {
-  width: number;
-  height: number;
-  tiles: Tile[][];
-  getTile(location: { x: number; y: number }): Tile | null;
-  tileEmptyAndFertile(location: { x: number; y: number }): boolean;
-  tileEmpty(location: { x: number; y: number }): boolean;
-}
+export default class Board {
+  width = 30;
+  height = 30;
+  tiles: Tile[][] = [];
 
-const NewBoard = (): Board => {
-  const width = 30;
-  const height = 30;
-  const board: Tile[][] = [];
-
-  for (let x = 0; x < height; x++) {
-    board[x] = [];
-    for (let y = 0; y < width; y++) {
-      board[x][y] = { soilFertilized: true, entity: null };
+  constructor() {
+    for (let x = 0; x < this.height; x++) {
+      this.tiles[x] = [];
+      for (let y = 0; y < this.width; y++) {
+        this.tiles[x][y] = { soilFertilized: true, entity: null };
+      }
     }
+
+    this.tiles[0][0].entity = NewPlant(0);
+    this.tiles[0][0].soilFertilized = false;
+
+    this.tiles[20][20].entity = NewHerbivore(0);
   }
 
-  board[0][0].entity = NewPlant(0);
-  board[0][0].soilFertilized = false;
+  getTile({ x, y }: { x: number; y: number }): Tile | null {
+    if (this.tiles[y] === undefined) return null;
 
-  board[20][20].entity = NewHerbivore(0);
+    const tile = this.tiles[y][x];
+    if (tile === undefined) return null;
 
-  return {
-    width,
-    height,
-    getTile({ x, y }: { x: number; y: number }): Tile | null {
-      if (board[y] === undefined) return null;
-
-      const tile = board[y][x];
-      if (tile === undefined) return null;
-
-      return tile;
-    },
-    tileEmptyAndFertile(location: { x: number; y: number }): boolean {
-      const tile = this.getTile(location);
-      return tile !== null && tile.entity === null && tile.soilFertilized;
-    },
-    tileEmpty(location: { x: number; y: number }): boolean {
-      const tile = this.getTile(location);
-      return tile !== null && tile.entity === null;
-    },
-    tiles: board
-  };
-};
-
-export default NewBoard;
+    return tile;
+  }
+  tileEmptyAndFertile(location: { x: number; y: number }): boolean {
+    const tile = this.getTile(location);
+    return tile !== null && tile.entity === null && tile.soilFertilized;
+  }
+  tileEmpty(location: { x: number; y: number }): boolean {
+    const tile = this.getTile(location);
+    return tile !== null && tile.entity === null;
+  }
+}

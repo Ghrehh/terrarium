@@ -1,5 +1,5 @@
 import Name from './Name';
-import { Board } from 'Board';
+import Board from 'Board';
 import Coordinate from 'Coordinate';
 import Instruction, { Verb } from 'Instruction';
 

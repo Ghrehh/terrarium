@@ -1,4 +1,4 @@
-import NewBoard, { Board } from 'Board';
+import Board from 'Board';
 import Name from 'entities/Name';
 import NewPlant from 'entities/Plant';
 import Instruction, { Verb } from 'Instruction';
@@ -14,7 +14,7 @@ export interface Game {
 const NewGame = (randomInteger: (_: number) => number): Game => {
   return {
     currentTick: 0,
-    board: NewBoard(),
+    board: new Board(),
     applyInstructions(instructions: Instruction[]) {
       instructions.forEach((instruction: Instruction) => {
         const sourceTile = this.board.getTile(instruction.sourceLocation);
