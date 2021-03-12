@@ -1,6 +1,6 @@
 import Name from './Name';
 import { Board } from 'Board';
-import NewCoordinate, { Coordinate } from 'Coordinate';
+import Coordinate from 'Coordinate';
 import Instruction, { Verb } from 'Instruction';
 
 interface Tick {

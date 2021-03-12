@@ -2,7 +2,7 @@ import NewBoard, { Board } from 'Board';
 import Name from 'entities/Name';
 import NewPlant from 'entities/Plant';
 import Instruction, { Verb } from 'Instruction';
-import NewCoordinate from 'Coordinate';
+import Coordinate from 'Coordinate';
 
 export interface Game {
   currentTick: number;
@@ -59,7 +59,7 @@ const NewGame = (randomInteger: (_: number) => number): Game => {
             entity.tick({
               currentTick: this.currentTick,
               board: this.board,
-              location: NewCoordinate({ x, y })
+              location: new Coordinate(x, y)
             })
           );
         });

@@ -1,6 +1,6 @@
 import { Game } from 'Game';
 import Instruction from 'Instruction';
-import { Coordinate } from 'Coordinate';
+import Coordinate from 'Coordinate';
 import NewPlant from 'entities/Plant';
 import NewHerbivore from 'entities/Herbivore';
 

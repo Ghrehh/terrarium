@@ -1,4 +1,4 @@
-import { Coordinate } from 'Coordinate';
+import Coordinate from 'Coordinate';
 import Name from 'entities/Name';
 
 export enum Verb {

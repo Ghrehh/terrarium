@@ -1,7 +1,7 @@
-import NewCoordinate from './';
+import Coordinate from './';
 
 describe('Coordinate', () => {
-  const location = NewCoordinate({ x: 10, y: 10 });
+  const location = new Coordinate(10, 10);
 
   it('has the correct x and y values', () => {
     expect(location).toMatchObject({ x: 10, y: 10 });

@@ -1,6 +1,6 @@
 import { Game } from 'Game';
 import NewPlant, { Plant } from './Plant';
-import NewCoordinate, { Coordinate } from 'Coordinate';
+import Coordinate from 'Coordinate';
 import Name from './Name';
 import { Verb } from 'Instruction';
 
@@ -17,10 +17,10 @@ describe('newPlant', () => {
 
   describe('tick', () => {
     let currentTick = 31;
-    const northCoordinate = NewCoordinate({ x: 0, y: 0 });
-    const eastCoordinate = NewCoordinate({ x: 0, y: 0 });
-    const southCoordinate = NewCoordinate({ x: 0, y: 0 });
-    const westCoordinate = NewCoordinate({ x: 0, y: 0 });
+    const northCoordinate = new Coordinate(0, 0);
+    const eastCoordinate = new Coordinate(0, 0);
+    const southCoordinate = new Coordinate(0, 0);
+    const westCoordinate = new Coordinate(0, 0);
 
     let validTile: Coordinate;
 
@@ -31,13 +31,17 @@ describe('newPlant', () => {
     };
 
     const location = {
-      ...NewCoordinate({ x: 0, y: 0 }),
+      ...new Coordinate(0, 0),
       x: 0,
       y: 0,
       north(): Coordinate { return northCoordinate },
+      northEast(): Coordinate { return this },
       east(): Coordinate { return eastCoordinate },
+      southEast(): Coordinate { return this },
       south(): Coordinate { return southCoordinate },
+      southWest(): Coordinate { return this },
       west(): Coordinate { return westCoordinate },
+      northWest(): Coordinate { return this },
     }
 
     describe('valid north tile', () => {
@@ -103,7 +107,7 @@ describe('newPlant', () => {
     describe('no valid tile', () => {
       beforeEach(() => {
         // Set to random coordinate to make it fail
-        validTile = NewCoordinate({ x: 0, y: 0 });
+        validTile = new Coordinate(0, 0);
       });
 
       it('returns the correct instruction', () => {
@@ -113,7 +117,7 @@ describe('newPlant', () => {
 
     describe('death', () => {
       beforeEach(() => {
-        validTile = NewCoordinate({ x: 0, y: 0 });
+        validTile = new Coordinate(0, 0);
         currentTick = 121;
       });
 

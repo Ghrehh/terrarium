@@ -1,6 +1,6 @@
 import EntityName from 'entities/Name';
 import { Tile } from 'Board';
-import NewCoordinate from 'Coordinate';
+import Coordinate from 'Coordinate';
 import Game from 'Game';
 
 const randomInteger = (max: number): number => {
@@ -26,7 +26,7 @@ setInterval(() => {
   for (let y = 0; y < gameState.board.height; y++) {
     for (let x = 0; x < gameState.board.width; x++) {
       finalOutput += symbolForTile(
-        gameState.board.getTile(NewCoordinate({ x, y }))
+        gameState.board.getTile(new Coordinate(x, y))
       );
     }
     finalOutput += '\n';
