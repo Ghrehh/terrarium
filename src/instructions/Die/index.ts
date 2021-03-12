@@ -14,8 +14,14 @@ export default class Die extends Instruction {
   }
 
   apply(instruction: Instruction, board: Board): void {
+    const tile = board.getTile(this.location);
+    if (tile.entity === null) throw 'tile should be null';
+    tile.entity = null;
   }
 
   revert(instruction: Instruction, board: Board): void {
+    const tile = board.getTile(this.location);
+    if (tile.entity !== null) throw 'trying to overwrite an entity';
+    tile.entity = this.entityConstructor(board.currentCycle);
   }
 }

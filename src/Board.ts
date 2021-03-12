@@ -1,5 +1,7 @@
 import Coordinate from 'Coordinate';
+import Plant from 'entities/Plant';
 import Entity from 'entities/Entity';
+import Instruction from 'instructions/Instruction';
 
 export interface Tile {
   soilFertilized: boolean;
@@ -20,8 +22,13 @@ export default class Board {
       }
     }
 
-    //this.tiles[0][0].entity = NewPlant(0);
-    this.tiles[0][0].soilFertilized = false;
+    this.setTile(
+      new Coordinate(0, 0),
+      {
+        entity: new Plant(this.currentCycle),
+        soilFertilized: false
+      }
+    )
 
     //this.tiles[20][20].entity = NewHerbivore(0);
   }
@@ -39,20 +46,43 @@ export default class Board {
     throw 'could not find entity';
   }
 
-  getTile({ x, y }: Coordinate): Tile | null {
-    if (this.tiles[y] === undefined) return null;
+  forEach(callback: (tile: Tile, rowEnd?: boolean, index?: number) => void): void {
+    this.tiles.forEach((row, y) => {
+      row.forEach((tile, x) => {
+        callback(tile, x === row.length - 1, x * y);
+      });
+    });
+  }
+
+  getTile({ x, y }: Coordinate): Tile {
+    if (this.tiles[y] === undefined) throw 'y index out of range';
 
     const tile = this.tiles[y][x];
-    if (tile === undefined) return null;
+    if (tile === undefined) throw 'x out of range';
 
     return tile;
   }
+
+  setTile({ x, y }: Coordinate, newTile: Tile): void {
+    if (this.tiles[y] === undefined) throw 'y index out of range';
+
+    const tile = this.tiles[y][x];
+    if (tile === undefined) throw 'x out of range';
+    if (tile.entity && newTile.entity) throw 'attempting to overwrite entity';
+    this.tiles[y][x] = newTile;
+  }
+
   tileEmptyAndFertile(location: Coordinate): boolean {
     const tile = this.getTile(location);
     return tile !== null && tile.entity === null && tile.soilFertilized;
   }
+
   tileEmpty(location: Coordinate): boolean {
     const tile = this.getTile(location);
     return tile !== null && tile.entity === null;
+  }
+
+  process(): void {
+    const instructions: Instruction[] = [];
   }
 }
