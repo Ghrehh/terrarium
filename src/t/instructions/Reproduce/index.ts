@@ -1,18 +1,21 @@
-import Coordinate from 'Coordinate';
-import Entity from 'entities/Entity';
-import Instruction from 'instructions/Instruction';
-import Board from 'Board';
+import Coordinate from 't/Coordinate';
+import Entity from 't/entities/Entity';
+import Instruction from 't/instructions/Instruction';
+import Board from 't/Board';
 
 export default class Reproduce extends Instruction {
   location: Coordinate;
+  parentLocation: Coordinate;
   entityConstructor: (cycle: number) => Entity;
 
   constructor(
     location: Coordinate,
-    entityConstructor: (cycle: number) => Entity
+    entityConstructor: (cycle: number) => Entity,
+    parentLocation: Coordinate
   ) {
     super();
     this.location = location;
+    this.parentLocation = parentLocation;
     this.entityConstructor = entityConstructor;
   }
 

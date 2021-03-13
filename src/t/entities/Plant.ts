@@ -2,10 +2,10 @@ import {
   Instruction,
   ReproduceInstruction,
   DieInstruction
-} from 'instructions';
-import Coordinate from 'Coordinate';
-import Board from 'Board';
-import Entity from 'entities/Entity';
+} from 't/instructions';
+import Coordinate from 't/Coordinate';
+import Board from 't/Board';
+import Entity from 't/entities/Entity';
 
 export default class Plant extends Entity {
   born = 0;
@@ -27,6 +27,7 @@ export default class Plant extends Entity {
   }
 
   private canReproduce(currentCycle: number): boolean {
+    if ((currentCycle - this.born) === 0) return false;
     return (currentCycle - this.born) % this.reproduceCooldown === 0;
   }
 
@@ -44,7 +45,8 @@ export default class Plant extends Entity {
         if (tile.empty && tile.fertile) {
           return new ReproduceInstruction(
             newLocation,
-            (currentCycle: number) => new Plant(currentCycle)
+            (currentCycle: number) => new Plant(currentCycle + 1),
+            location
           );
         }
       }

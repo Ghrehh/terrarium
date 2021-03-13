@@ -1,5 +1,5 @@
-import Instruction from 'instructions/Instruction';
-import Board from 'Board';
+import Instruction from 't/instructions/Instruction';
+import Board from 't/Board';
 
 export default abstract class Entity {
   abstract readonly born: number;

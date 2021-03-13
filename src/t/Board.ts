@@ -24,9 +24,10 @@ export class Tile {
 export default class Board {
   readonly width = 30;
   readonly height = 30;
-  readonly currentCycle = 0;
+  currentCycle = 0;
 
   tiles: Tile[][] = [];
+  instructions: Instruction[][] = [];
 
   constructor() {
     for (let x = 0; x < this.height; x++) {
@@ -47,21 +48,18 @@ export default class Board {
       for (let tileIndex = 0; tileIndex < tileRow.length; tileIndex++) {
         const tile = tileRow[tileIndex];
 
-        if (tile?.entity === entity) return new Coordinate(rowIndex, tileIndex);
+        if (tile?.entity === entity) return new Coordinate(tileIndex, rowIndex);
       }
     }
 
     throw 'could not find entity';
   }
 
-  forEach(
-    callback: (tile: Tile, rowEnd?: boolean, index?: number) => void
-  ): void {
-    this.tiles.forEach((row, y) => {
-      row.forEach((tile, x) => {
-        callback(tile, x === row.length - 1, x * y);
-      });
-    });
+  get entities(): Entity[] {
+    const tiles = this.tiles.flat();
+    const entities = tiles.map(tile => tile.entity);
+
+    return entities.filter((entity): entity is Entity => entity !== null);
   }
 
   getTile({ x, y }: Coordinate): Tile {
@@ -87,16 +85,17 @@ export default class Board {
     return tile !== null && tile.entity === null;
   }
 
-  process(): void {
-    let instructions: Instruction[] = []
+  next(): void {
     // get list of entities first
-    this.forEach((tile) => {
-      const newInstructions = tile?.entity?.generateInstructions(this);
+    this.instructions[this.currentCycle] = [];
+    this.entities.forEach((entity) => {
+      const newInstructions = entity.generateInstructions(this);
       if (newInstructions) {
-        instructions = instructions.concat(newInstructions);
+        newInstructions.forEach(instruction => instruction.apply(this));
+        this.instructions[this.currentCycle] = this.instructions[this.currentCycle].concat(newInstructions);
       }
     });
-    console.log(instructions);
-    instructions.forEach((instruction) => instruction.apply(this));
+
+    this.currentCycle++;
   }
 }

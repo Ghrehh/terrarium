@@ -1,4 +1,4 @@
-import Board from 'Board';
+import Board from 't/Board';
 
 export default class Coordinate {
   x;

@@ -1,5 +1,5 @@
-import Board from 'Board';
-import Instruction from 'instructions/Instruction';
+import Board from 't/Board';
+import Instruction from 't/instructions/Instruction';
 
 export interface Game {
   currentTick: number;

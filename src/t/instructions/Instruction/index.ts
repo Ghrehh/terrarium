@@ -1,4 +1,4 @@
-import Board from 'Board';
+import Board from 't/Board';
 
 export default abstract class Instruction {
   abstract apply(board: Board): void;

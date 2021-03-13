@@ -1,6 +1,6 @@
-import Coordinate from 'Coordinate';
-import Instruction from 'instructions/Instruction';
-import Board from 'Board';
+import Coordinate from 't/Coordinate';
+import Instruction from 't/instructions/Instruction';
+import Board from 't/Board';
 
 export default class Move extends Instruction {
   start: Coordinate;

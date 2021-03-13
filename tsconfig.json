@@ -20,11 +20,7 @@
     "noImplicitAny": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "t": "src/terrarium",
-      "ui": "src/ui"
-    }
+    "baseUrl": "./src"
   },
   "include": [
     "src"
