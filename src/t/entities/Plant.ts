@@ -27,7 +27,7 @@ export default class Plant extends Entity {
   }
 
   private canReproduce(currentCycle: number): boolean {
-    if ((currentCycle - this.born) === 0) return false;
+    if (currentCycle - this.born === 0) return false;
     return (currentCycle - this.born) % this.reproduceCooldown === 0;
   }
 

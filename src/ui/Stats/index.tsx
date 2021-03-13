@@ -14,7 +14,7 @@ const Stats = ({ board }: { board: BoardType }) => {
   return (
     <div style={{ display: 'flex' }}>
       <p>cycle: {board.currentCycle}</p>
-      <div ref={ref} style={{ height: '300px', overflow: 'scroll'}}>
+      <div ref={ref} style={{ height: '300px', overflow: 'scroll' }}>
         <ul>
           {board.instructions.map((cycle, index) => {
             if (cycle.length === 0) return null;
@@ -23,7 +23,10 @@ const Stats = ({ board }: { board: BoardType }) => {
               <div>
                 <p>Cycle {index}</p>
                 {cycle.map((instruction) => (
-                  <p>{instruction.constructor.name}{JSON.stringify(instruction)}</p>
+                  <p>
+                    {instruction.constructor.name}
+                    {JSON.stringify(instruction)}
+                  </p>
                 ))}
               </div>
             );
@@ -32,6 +35,6 @@ const Stats = ({ board }: { board: BoardType }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Stats;

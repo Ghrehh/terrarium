@@ -4,12 +4,11 @@ import Plant from 't/entities/Plant';
 
 const Tile = ({ tile }: { tile: TileType }) => {
   const getColor = (): string => {
-    if (tile?.entity?.constructor?.name === Plant.name) 
-      return 'green';
+    if (tile?.entity?.constructor?.name === Plant.name) return 'green';
     if (tile.fertile) return 'brown';
 
-    return 'black'
-  }
+    return 'black';
+  };
 
   return (
     <div
@@ -20,22 +19,22 @@ const Tile = ({ tile }: { tile: TileType }) => {
         border: '1px solid black'
       }}
     />
-  )
-}
+  );
+};
 
 const Board = ({ board }: { board: BoardType }) => {
   console.log(board);
   return (
-  <div>
-    {board.tiles.map((row) => (
-      <div style= {{display: 'flex' }}>
-        {row.map(tile => (
-          <Tile tile={tile} />
-        ))}
-      </div>
-    ))}
-  </div>
-  )
-}
+    <div>
+      {board.tiles.map((row) => (
+        <div style={{ display: 'flex' }}>
+          {row.map((tile) => (
+            <Tile tile={tile} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default Board;

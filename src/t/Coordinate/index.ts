@@ -44,6 +44,11 @@ export default class Coordinate {
     ];
   }
   inBounds(board: Board): boolean {
-    return this.x >= 0 && this.x < board.width && this.y >= 0 && this.y < board.height;
+    return (
+      this.x >= 0 &&
+      this.x < board.width &&
+      this.y >= 0 &&
+      this.y < board.height
+    );
   }
 }

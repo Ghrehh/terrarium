@@ -37,7 +37,10 @@ export default class Board {
       }
     }
 
-    this.setTile(new Coordinate(0, 0), new Tile(false, new Plant(this.currentCycle)));
+    this.setTile(
+      new Coordinate(0, 0),
+      new Tile(false, new Plant(this.currentCycle))
+    );
 
     //this.tiles[20][20].entity = NewHerbivore(0);
   }
@@ -57,7 +60,7 @@ export default class Board {
 
   get entities(): Entity[] {
     const tiles = this.tiles.flat();
-    const entities = tiles.map(tile => tile.entity);
+    const entities = tiles.map((tile) => tile.entity);
 
     return entities.filter((entity): entity is Entity => entity !== null);
   }
@@ -91,8 +94,10 @@ export default class Board {
     this.entities.forEach((entity) => {
       const newInstructions = entity.generateInstructions(this);
       if (newInstructions) {
-        newInstructions.forEach(instruction => instruction.apply(this));
-        this.instructions[this.currentCycle] = this.instructions[this.currentCycle].concat(newInstructions);
+        newInstructions.forEach((instruction) => instruction.apply(this));
+        this.instructions[this.currentCycle] = this.instructions[
+          this.currentCycle
+        ].concat(newInstructions);
       }
     });
 
