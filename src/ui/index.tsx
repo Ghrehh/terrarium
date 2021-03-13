@@ -18,7 +18,10 @@ const UI = ({ board }: { board: BoardType }) => {
         case 'ArrowRight':
           board.next();
           forceUpdate();
-
+          break;
+        case 'ArrowLeft':
+          board.previous();
+          forceUpdate();
           break;
       }
     });

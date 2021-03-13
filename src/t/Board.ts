@@ -83,13 +83,7 @@ export default class Board {
     this.tiles[y][x] = newTile;
   }
 
-  tileEmpty(location: Coordinate): boolean {
-    const tile = this.getTile(location);
-    return tile !== null && tile.entity === null;
-  }
-
   next(): void {
-    // get list of entities first
     this.instructions[this.currentCycle] = [];
     this.entities.forEach((entity) => {
       const newInstructions = entity.generateInstructions(this);
@@ -102,5 +96,15 @@ export default class Board {
     });
 
     this.currentCycle++;
+  }
+
+  previous(): void {
+    if (this.currentCycle < 1) throw new Error("can't undo");
+    const instructions = this.instructions[this.currentCycle - 1];
+
+    instructions.reverse().forEach((instruction) => instruction.revert(this));
+
+    this.instructions[this.currentCycle - 1] = [];
+    this.currentCycle--;
   }
 }

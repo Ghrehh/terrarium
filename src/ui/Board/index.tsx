@@ -23,7 +23,6 @@ const Tile = ({ tile }: { tile: TileType }) => {
 };
 
 const Board = ({ board }: { board: BoardType }) => {
-  console.log(board);
   return (
     <div>
       {board.tiles.map((row) => (
