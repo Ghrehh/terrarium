@@ -39,5 +39,23 @@ describe('Coordinate', () => {
     it('northWest', () => {
       expect(location.northWest()).toMatchObject({ x: 9, y: 9 });
     });
+
+    it('surrounding', () => {
+      const surrounding = location.surrounding();
+      expect(surrounding[0]()).toMatchObject(location.north());
+      expect(surrounding[1]()).toMatchObject(location.northEast());
+      expect(surrounding[2]()).toMatchObject(location.east());
+      expect(surrounding[3]()).toMatchObject(location.southEast());
+      expect(surrounding[4]()).toMatchObject(location.south());
+      expect(surrounding[5]()).toMatchObject(location.southWest());
+      expect(surrounding[6]()).toMatchObject(location.west());
+      expect(surrounding[7]()).toMatchObject(location.northWest());
+    });
+
+    it('inBounds', () => {
+      expect(location.inBounds({ height: 5, width: 5 })).toBe(false)
+      expect(location.inBounds({ height: 12, width: 5 })).toBe(false)
+      expect(location.inBounds({ height: 11, width: 11 })).toBe(true)
+    });
   });
 });

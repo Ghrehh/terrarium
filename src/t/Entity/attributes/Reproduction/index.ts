@@ -25,7 +25,7 @@ export default class Reproduction extends Attribute implements Properties {
 
   makeInstructions(ownLocation: Coordinate, board: Board): Instruction[] {
     if (this.canReproduce(board.currentCycle)) {
-      for (const locationFunction of ownLocation.compassDirections()) {
+      for (const locationFunction of ownLocation.surrounding()) {
         const newLocation = locationFunction();
 
         if (newLocation.inBounds(board)) {

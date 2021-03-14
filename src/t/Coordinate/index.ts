@@ -8,28 +8,36 @@ export default class Coordinate {
   north(): Coordinate {
     return new Coordinate(this.x, this.y - 1);
   }
+
   northEast(): Coordinate {
     return new Coordinate(this.x + 1, this.y - 1);
   }
+
   east(): Coordinate {
     return new Coordinate(this.x + 1, this.y);
   }
+
   southEast(): Coordinate {
     return new Coordinate(this.x + 1, this.y + 1);
   }
+
   south(): Coordinate {
     return new Coordinate(this.x, this.y + 1);
   }
+
   southWest(): Coordinate {
     return new Coordinate(this.x - 1, this.y + 1);
   }
+
   west(): Coordinate {
     return new Coordinate(this.x - 1, this.y);
   }
+
   northWest(): Coordinate {
     return new Coordinate(this.x - 1, this.y - 1);
   }
-  compassDirections(): (() => Coordinate)[] {
+
+  surrounding(): (() => Coordinate)[] {
     return [
       () => this.north(),
       () => this.northEast(),
