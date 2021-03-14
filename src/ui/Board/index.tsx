@@ -1,10 +1,10 @@
 import React from 'react';
 import BoardType, { Tile as TileType } from 't/Board';
-import Plant from 't/entities/Plant';
+import Entity from 't/Entity';
 
 const Tile = ({ tile }: { tile: TileType }) => {
   const getColor = (): string => {
-    if (tile?.entity?.constructor?.name === Plant.name) return 'green';
+    if (tile?.entity?.constructor?.name === Entity.name) return 'green';
     if (tile.fertile) return 'brown';
 
     return 'black';

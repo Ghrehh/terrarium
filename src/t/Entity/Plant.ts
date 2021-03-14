@@ -1,3 +1,4 @@
+/*
 import {
   Instruction,
   ReproduceInstruction,
@@ -6,6 +7,7 @@ import {
 import Coordinate from 't/Coordinate';
 import Board from 't/Board';
 import Entity from 't/entities/Entity';
+
 
 export default class Plant extends Entity {
   born = 0;
@@ -52,4 +54,6 @@ export default class Plant extends Entity {
       }
     }
   }
-}
+}*/
+
+export {}

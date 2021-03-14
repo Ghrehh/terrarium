@@ -1,6 +1,5 @@
 import Coordinate from 't/Coordinate';
-import Plant from 't/entities/Plant';
-import Entity from 't/entities/Entity';
+import Entity, { newEntity } from 't/Entity';
 import Instruction from 't/instructions/Instruction';
 
 export class Tile {
@@ -39,7 +38,7 @@ export default class Board {
 
     this.setTile(
       new Coordinate(0, 0),
-      new Tile(false, new Plant(this.currentCycle))
+      new Tile(false, newEntity(0))
     );
 
     //this.tiles[20][20].entity = NewHerbivore(0);

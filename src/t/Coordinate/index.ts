@@ -1,5 +1,3 @@
-import Board from 't/Board';
-
 export default class Coordinate {
   x;
   y;
@@ -43,12 +41,12 @@ export default class Coordinate {
       () => this.northWest()
     ];
   }
-  inBounds(board: Board): boolean {
+  inBounds({ height, width }: { height: number, width: number }): boolean {
     return (
       this.x >= 0 &&
-      this.x < board.width &&
+      this.x < width &&
       this.y >= 0 &&
-      this.y < board.height
+      this.y < height
     );
   }
 }

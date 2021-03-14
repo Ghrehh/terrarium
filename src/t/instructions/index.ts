@@ -1,11 +1,12 @@
 import Instruction from './Instruction';
 import Move from './Move';
 import Reproduce from './Reproduce';
-import Die from './Die';
+import Remove from './Remove';
 
+// actions to manipulate things on the board
 export {
   Instruction,
   Move as MoveInstruction,
   Reproduce as ReproduceInstruction,
-  Die as DieInstruction
+  Remove as RemoveInstruction
 };

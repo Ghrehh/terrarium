@@ -1,5 +1,5 @@
 import Coordinate from 't/Coordinate';
-import Entity from 't/entities/Entity';
+import Entity from 't/Entity';
 import Instruction from 't/instructions/Instruction';
 import Board from 't/Board';
 
