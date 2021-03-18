@@ -2,6 +2,20 @@ import Coordinate from 't/Coordinate';
 import Entity, { newEntity } from 't/Entity';
 import Instruction from 't/instructions/Instruction';
 
+class Entities extends Array<Entity> {
+  exclude(entityToExclude: Entity): Entities {
+    return this.filter(entity => entity !== entityToExclude)
+  }
+
+  filter(callback: (e: Entity, index: number, array: Entity[]) => boolean): Entities {
+    return Entities.from(super.filter(callback));
+  }
+
+  static from(entities: Array<Entity>): Entities {
+    return new Entities(...entities);
+  }
+}
+
 export class Tile {
   soilFertilized: boolean;
   entity: Entity | null;
@@ -26,6 +40,7 @@ export default class Board {
   currentCycle = 0;
 
   tiles: Tile[][] = [];
+  entities: Entities = Entities.from([]);
   instructions: Instruction[][] = [];
 
   constructor() {
@@ -55,13 +70,6 @@ export default class Board {
     }
 
     throw 'could not find entity';
-  }
-
-  get entities(): Entity[] {
-    const tiles = this.tiles.flat();
-    const entities = tiles.map((tile) => tile.entity);
-
-    return entities.filter((entity): entity is Entity => entity !== null);
   }
 
   getTile({ x, y }: Coordinate): Tile {

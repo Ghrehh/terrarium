@@ -1,5 +1,6 @@
 import { Instruction, ReproduceInstruction } from 't/instructions';
 import Board from 't/Board';
+import Coordinate from 't/Coordinate';
 import * as attributes from 't/Entity/attributes';
 
 interface possibleAttributes {
@@ -8,9 +9,13 @@ interface possibleAttributes {
 }
 
 export default class Entity {
-  reproduceCooldown = 40;
+  location: Coordinate;
+  attributes: possibleAttributes;
 
-  constructor(readonly attributes: possibleAttributes) {}
+  constructor({ attributes, location }: { attributes: possibleAttributes, location: Coordinate }) {
+    this.attributes = attributes;
+    this.location = location;
+  }
 
   generateInstructions(board: Board): Instruction[] {
     let instructions: Instruction[] = [];
